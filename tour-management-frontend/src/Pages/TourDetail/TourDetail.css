@@ -1,0 +1,17 @@
+/* TourDetail page */
+.price-card {
+  background: linear-gradient(135deg, #f6ffed, #f0fff4) !important;
+  border-radius: 12px !important;
+  border: 1px solid #b7eb8f !important;
+}
+
+.info-card {
+  border-radius: 12px !important;
+  background: #fff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+}
+
+/* Override Swiper inside TourDetail */
+.tour-detail-page .inner-image {
+  height: 380px;
+}

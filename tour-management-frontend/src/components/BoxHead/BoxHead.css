@@ -1,0 +1,24 @@
+/* BoxHead */
+.box-head {
+  margin-bottom: 32px;
+}
+
+.box-head-title {
+  color: #00b96b !important;
+  margin-bottom: 4px !important;
+  font-weight: 700 !important;
+}
+
+.box-head-subtitle {
+  color: #888;
+  margin-bottom: 12px;
+  font-size: 15px;
+}
+
+.box-head-divider {
+  width: 56px;
+  height: 4px;
+  background: linear-gradient(90deg, #00b96b, #52c41a);
+  border-radius: 2px;
+  margin-top: 4px;
+}

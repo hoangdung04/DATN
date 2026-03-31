@@ -1,0 +1,49 @@
+/* CategoryCard */
+.category-card {
+  border-radius: 12px !important;
+  overflow: hidden;
+  transition: transform 0.25s, box-shadow 0.25s !important;
+}
+
+.category-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.14) !important;
+}
+
+.category-card-img-wrapper {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.category-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s;
+}
+
+.category-card:hover .category-card-img {
+  transform: scale(1.06);
+}
+
+.category-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.45), transparent);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 12px;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.category-card:hover .category-card-overlay {
+  opacity: 1;
+}
+
+.overlay-icon {
+  font-size: 24px;
+  color: #ffffff;
+}

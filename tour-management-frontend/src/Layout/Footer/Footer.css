@@ -1,0 +1,8 @@
+/* Footer */
+.client-footer {
+  text-align: center;
+  background: #001529;
+  color: rgba(255,255,255,0.65) !important;
+  padding: 16px 24px;
+  font-size: 13px;
+}
