@@ -87,6 +87,7 @@ function Cart() {
           fullName: values.fullName,
           phone: values.phone,
           note: values.note || "",
+          account_id: getUser()?.id || null,
         },
         cart: getCart(),
       };

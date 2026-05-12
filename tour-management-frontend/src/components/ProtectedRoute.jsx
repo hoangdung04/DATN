@@ -1,12 +1,12 @@
 import { Navigate } from "react-router-dom";
-import { isLoggedIn } from "../utils/auth";
+import { isAdmin } from "../utils/auth";
 
 /**
  * ProtectedRoute – Bảo vệ các trang admin
- * Nếu chưa đăng nhập → redirect về /admin/login
+ * Nếu không phải là admin → redirect về /admin/login
  */
 function ProtectedRoute({ children }) {
-  if (!isLoggedIn()) {
+  if (!isAdmin()) {
     return <Navigate to="/admin/login" replace />;
   }
   return children;

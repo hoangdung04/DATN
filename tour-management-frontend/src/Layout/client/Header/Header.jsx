@@ -8,6 +8,7 @@ import {
   UserOutlined,
   DashboardOutlined,
   LogoutOutlined,
+  HistoryOutlined,
 } from "@ant-design/icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { getCartCount } from "../../../utils/cart";
@@ -56,7 +57,7 @@ function Header() {
       key: "cart",
       icon: (
         <Badge count={cartCount} size="small" offset={[4, -2]}>
-          <ShoppingCartOutlined style={{ fontSize: 16, color: "#fff" }} />
+          <ShoppingCartOutlined style={{ fontSize: 18, color: "#4b5563" }} />
         </Badge>
       ),
       label: <Link to="/cart">Giỏ hàng</Link>,
@@ -75,12 +76,17 @@ function Header() {
 
   // Menu dropdown: Chỉ hiện nút "Trang quản trị" nếu là Admin
   const userMenuItems = [
-    // Chỉ thêm mục này nếu user là quản trị viên
     ...(admin ? [{
       key: "admin",
       icon: <DashboardOutlined />,
       label: <Link to="/admin">Trang quản trị</Link>,
     }, { type: "divider" }] : []),
+    {
+      key: "history",
+      icon: <HistoryOutlined />,
+      label: <Link to="/order/history">Lịch sử đặt tour</Link>,
+    },
+    { type: "divider" },
     {
       key: "logout",
       icon: <LogoutOutlined />,
@@ -100,7 +106,7 @@ function Header() {
 
       {/* Navigation menu */}
       <Menu
-        theme="dark"
+        theme="light"
         mode="horizontal"
         selectedKeys={[selectedKey()]}
         items={menuItems}
@@ -122,15 +128,23 @@ function Header() {
             </Space>
           </Dropdown>
         ) : (
-          <Button
-            type="primary"
-            ghost
-            icon={<LoginOutlined />}
-            className="header-login-btn"
-            onClick={() => navigate("/login")}
-          >
-            Đăng nhập
-          </Button>
+          <Space size={8}>
+            <Button
+              type="text"
+              className="header-register-btn"
+              onClick={() => navigate("/register")}
+            >
+              Đăng ký
+            </Button>
+            <Button
+              type="primary"
+              icon={<LoginOutlined />}
+              className="header-login-btn"
+              onClick={() => navigate("/login")}
+            >
+              Đăng nhập
+            </Button>
+          </Space>
         )}
       </div>
     </AntHeader>

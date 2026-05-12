@@ -8,6 +8,8 @@ import {
   TagsOutlined,
   SafetyCertificateOutlined,
   UserSwitchOutlined,
+  ShoppingCartOutlined,
+  DashboardOutlined,
 } from "@ant-design/icons";
 import { Link, useLocation } from "react-router-dom";
 import "./AdminSider.css";
@@ -19,8 +21,10 @@ function AdminSider() {
   const location = useLocation();
 
   const getSelectedKey = () => {
+    if (location.pathname.startsWith("/admin/dashboard")) return "dashboard";
     if (location.pathname.startsWith("/admin/tours/create")) return "tours-create";
     if (location.pathname.startsWith("/admin/tours")) return "tours";
+    if (location.pathname.startsWith("/admin/orders")) return "orders";
     if (location.pathname.startsWith("/admin/categories")) return "categories";
     if (location.pathname.startsWith("/admin/roles/permissions")) return "roles-permissions";
     if (location.pathname.startsWith("/admin/roles")) return "roles";
@@ -29,6 +33,11 @@ function AdminSider() {
   };
 
   const menuItems = [
+    {
+      key: "dashboard",
+      icon: <DashboardOutlined />,
+      label: <Link to="/admin/dashboard">Tổng quan</Link>,
+    },
     {
       key: "tour-group",
       icon: <GlobalOutlined />,
@@ -43,6 +52,18 @@ function AdminSider() {
           key: "tours-create",
           icon: <AppstoreOutlined />,
           label: <Link to="/admin/tours/create">Thêm tour mới</Link>,
+        },
+      ],
+    },
+    {
+      key: "orders-group",
+      icon: <ShoppingCartOutlined />,
+      label: "Đơn hàng",
+      children: [
+        {
+          key: "orders",
+          icon: <UnorderedListOutlined />,
+          label: <Link to="/admin/orders">Danh sách đơn hàng</Link>,
         },
       ],
     },
@@ -97,7 +118,7 @@ function AdminSider() {
         theme="dark"
         mode="inline"
         selectedKeys={[getSelectedKey()]}
-        defaultOpenKeys={["tour-group", "category-group", "system-group"]}
+        defaultOpenKeys={["tour-group", "orders-group", "category-group", "system-group"]}
         items={menuItems}
         className="admin-menu"
       />

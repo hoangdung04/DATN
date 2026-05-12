@@ -2,47 +2,66 @@
 .client-header {
   display: flex;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 40px;
   position: sticky;
   top: 0;
   z-index: 100;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  background: #001529 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  height: 72px !important;
+  line-height: 72px !important;
+  transition: all 0.3s ease;
 }
 
 .header-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   cursor: pointer;
-  margin-right: 32px;
+  margin-right: 48px;
   flex-shrink: 0;
 }
 
 .logo-icon {
-  font-size: 24px;
+  font-size: 28px;
   color: #00b96b !important;
 }
 
 .logo-text {
-  font-size: 20px;
-  color: #ffffff !important;
-  letter-spacing: 0.5px;
+  font-size: 22px;
+  color: #111827 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px;
 }
 
 .header-menu {
   flex: 1;
   background: transparent !important;
   border-bottom: none !important;
-  line-height: 64px;
+  line-height: 72px;
 }
 
 .header-menu .ant-menu-item a {
-  color: rgba(255,255,255,0.85) !important;
+  color: #4b5563 !important;
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.2s;
+}
+
+.header-menu .ant-menu-item:hover a {
+  color: #111827 !important;
 }
 
 .header-menu .ant-menu-item-selected a {
   color: #00b96b !important;
+}
+
+.header-menu .ant-menu-item-selected::after {
+  border-bottom-color: #00b96b !important;
+  border-bottom-width: 3px !important;
 }
 
 /* Auth area (right side) */
@@ -51,26 +70,51 @@
   align-items: center;
   margin-left: auto;
   flex-shrink: 0;
+  gap: 12px;
 }
 
-.header-login-btn {
-  border-color: #00b96b !important;
-  color: #00b96b !important;
-  font-weight: 600;
+/* Nút đăng ký (Outline nhẹ hoặc Text) */
+.header-register-btn {
+  color: #4b5563 !important;
+  font-weight: 600 !important;
+  font-size: 15px;
+  height: 40px !important;
   border-radius: 8px !important;
-  transition: all 0.3s;
+  transition: all 0.3s !important;
+}
+.header-register-btn:hover {
+  color: #111827 !important;
+  background: rgba(0,0,0,0.04) !important;
+}
+
+/* Nút đăng nhập (Solid green) */
+.header-login-btn {
+  background: #00b96b !important;
+  border-color: #00b96b !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+  font-size: 15px;
+  height: 40px !important;
+  padding: 0 20px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 185, 107, 0.2) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
 .header-login-btn:hover {
-  background: rgba(0, 185, 107, 0.15) !important;
-  border-color: #00d47a !important;
-  color: #00d47a !important;
-  transform: translateY(-1px);
+  background: #00a65f !important;
+  border-color: #00a65f !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 185, 107, 0.3) !important;
+}
+.header-login-btn:active {
+  transform: translateY(0);
 }
 
 .header-username {
-  color: rgba(255, 255, 255, 0.85) !important;
-  font-size: 13px;
+  color: #111827 !important;
+  font-weight: 600;
+  font-size: 14px;
 }
 
 .header-user:hover .header-username {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Input, Button, message, Typography, Tabs } from "antd";
 import { UserOutlined, LockOutlined, PhoneOutlined, MailOutlined, GlobalOutlined } from "@ant-design/icons";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { clientLogin, clientRegister } from "../../../services/api";
 import { saveToken, saveUser } from "../../../utils/auth";
 import "./ClientAuth.css";
@@ -154,6 +154,8 @@ function RegisterForm({ setLoading, loading }) {
 // ==========================================
 function ClientAuth() {
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const defaultTab = location.pathname === "/register" ? "register" : "login";
 
   const items = [
     {
@@ -185,7 +187,7 @@ function ClientAuth() {
         </div>
 
         {/* Tab Đăng nhập / Đăng ký */}
-        <Tabs defaultActiveKey="login" items={items} centered size="large" className="client-auth-tabs" />
+        <Tabs defaultActiveKey={defaultTab} items={items} centered size="large" className="client-auth-tabs" />
 
         {/* Link về trang chủ */}
         <div style={{ textAlign: "center", marginTop: 16 }}>

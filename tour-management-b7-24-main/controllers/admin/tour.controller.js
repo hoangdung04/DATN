@@ -3,9 +3,19 @@ import Category from "../../models/category.model.js";
 import TourCategory from "../../models/tour-category.model.js";
 import { generateTourCode } from "../../helpers/generate.helper.js";
 
-export const index = async (req, res) => {
+export const index = async (req, res, next) => {
   try {
-    const tours = await Tour.findAll({ where: { deleted: false }, raw: true });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = (page - 1) * limit;
+
+    const { count, rows: tours } = await Tour.findAndCountAll({ 
+      where: { deleted: false }, 
+      offset: offset,
+      limit: limit,
+      raw: true 
+    });
+
     tours.forEach(item => {
       if (item["images"]) {
         const images = JSON.parse(item["images"]);
@@ -13,22 +23,28 @@ export const index = async (req, res) => {
       }
       item["price_special"] = (item["price"] * (1 - item["discount"] / 100));
     });
-    res.json({ tours });
+    
+    res.json({ 
+      tours, 
+      totalPages: Math.ceil(count / limit), 
+      currentPage: page,
+      totalItems: count
+    });
   } catch (error) {
-    res.status(500).json({ error: "Lỗi server" });
+    next(error); // Chuyển lỗi cho Global Error Handler
   }
 };
 
-export const getCategories = async (req, res) => {
+export const getCategories = async (req, res, next) => {
   try {
     const categories = await Category.findAll({ where: { deleted: false, status: 'active' }, raw: true });
     res.json({ categories });
   } catch (error) {
-    res.status(500).json({ error: "Lỗi server" });
+    next(error);
   }
 };
 
-export const createPost = async (req, res) => {
+export const createPost = async (req, res, next) => {
   try {
     if (req.body.position == "") {
       const countTour = await Tour.count();
@@ -49,26 +65,28 @@ export const createPost = async (req, res) => {
     await TourCategory.create(dataTourCategory);
     res.json({ code: "success", message: "Tạo tour thành công!" });
   } catch (error) {
-    res.status(500).json({ error: "Lỗi server" });
+    next(error);
   }
 };
 
-export const detail = async (req, res) => {
+export const detail = async (req, res, next) => {
   try {
     const tour = await Tour.findOne({ where: { id: req.params.id, deleted: false }, raw: true });
     if (!tour) {
-      res.status(404).json({ error: "Không tìm thấy tour" });
+      const err = new Error("Không tìm thấy tour");
+      err.statusCode = 404;
+      return next(err);
     } else {
       if (tour["images"]) tour["images"] = JSON.parse(tour["images"]);
       const tourCategory = await TourCategory.findOne({ where: { tour_id: req.params.id }, raw: true });
       res.json({ tour, category_id: tourCategory ? tourCategory["category_id"] : null });
     }
   } catch (error) {
-    res.status(500).json({ error: "Lỗi server" });
+    next(error);
   }
 };
 
-export const editPatch = async (req, res) => {
+export const editPatch = async (req, res, next) => {
   try {
     const updateData = {
       title: req.body.title, price: parseInt(req.body.price), discount: parseInt(req.body.discount), stock: parseInt(req.body.stock),
@@ -85,15 +103,15 @@ export const editPatch = async (req, res) => {
     }
     res.json({ code: "success", message: "Cập nhật tour thành công!" });
   } catch (error) {
-    res.status(500).json({ error: "Lỗi server" });
+    next(error);
   }
 };
 
-export const deletePatch = async (req, res) => {
+export const deletePatch = async (req, res, next) => {
   try {
     await Tour.update({ deleted: true, deletedAt: new Date() }, { where: { id: req.params.id } });
     res.json({ code: "success", message: "Xóa tour thành công!" });
   } catch (error) {
-    res.status(500).json({ error: "Lỗi server" });
+    next(error);
   }
 };

@@ -48,6 +48,7 @@ export const getToursByCategory = (slugCategory) => api.get(`/tours/${slugCatego
 export const getTourDetail = (slugTour) => api.get(`/tours/detail/${slugTour}`);
 export const getCartList = (cart) => api.post('/cart/list', cart);
 export const createOrder = (data) => api.post('/order', data);
+export const getClientOrderHistory = () => api.get('/order/history');
 export const getOrderSuccess = (orderCode) => api.get(`/order/success?orderCode=${orderCode}`);
 
 // ========================
@@ -70,7 +71,7 @@ export const adminMe = () => api.get('/admin/auth/me');
 // ADMIN TOURS APIs
 // ========================
 
-export const getAdminTours = () => api.get('/admin/tours');
+export const getAdminTours = (params) => api.get('/admin/tours', { params });
 export const getAdminTourCategories = () => api.get('/admin/tours/categories');
 export const createAdminTour = (formData) => api.post('/admin/tours/create', formData, {
   headers: { 'Content-Type': 'multipart/form-data' }
@@ -116,5 +117,18 @@ export const getAdminAccountById = (id) => api.get(`/admin/accounts/${id}`);
 export const createAdminAccount = (data) => api.post('/admin/accounts/create', data);
 export const updateAdminAccount = (id, data) => api.patch(`/admin/accounts/${id}`, data);
 export const deleteAdminAccount = (id) => api.delete(`/admin/accounts/${id}`);
+
+// ========================
+// ADMIN ORDERS APIs
+// ========================
+
+export const getAdminOrders = () => api.get('/admin/orders');
+export const updateAdminOrderStatus = (id, status) => api.patch(`/admin/orders/${id}/status`, { status });
+
+// ========================
+// ADMIN DASHBOARD APIs
+// ========================
+
+export const getAdminDashboard = () => api.get('/admin/dashboard');
 
 export default api;

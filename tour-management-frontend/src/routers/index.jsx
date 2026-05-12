@@ -13,16 +13,23 @@ import Tours from "../Pages/client/Tours";
 import TourDetail from "../Pages/client/TourDetail";
 import Cart from "../Pages/client/Cart";
 import OrderSuccess from "../Pages/client/OrderSuccess";
+import OrderHistory from "../Pages/client/OrderHistory/OrderHistory";
 import ClientAuth from "../Pages/client/ClientAuth/ClientAuth";
 
 // Admin Auth
 import AdminLogin from "../Pages/admin/AdminLogin/AdminLogin";
+
+// Admin Dashboard
+import AdminDashboard from "../Pages/admin/AdminDashboard/AdminDashboard";
 
 // Admin Pages – Tours
 import AdminTours from "../Pages/admin/AdminTours";
 import AdminTourCreate from "../Pages/admin/AdminTourCreate";
 import AdminTourEdit from "../Pages/admin/AdminTourEdit";
 import AdminTourDetail from "../Pages/admin/AdminTourDetail";
+
+// Admin Pages – Orders
+import AdminOrders from "../Pages/admin/AdminOrders/AdminOrders";
 
 // Admin Pages – Categories
 import AdminCategories from "../Pages/admin/AdminCategories";
@@ -32,7 +39,11 @@ import AdminCategoryDetail from "../Pages/admin/AdminCategoryDetail";
 
 // Admin Pages – Phân quyền
 import AdminAccounts from "../Pages/admin/AdminAccounts/AdminAccounts";
+import AdminAccountCreate from "../Pages/admin/AdminAccountCreate/AdminAccountCreate";
+import AdminAccountEdit from "../Pages/admin/AdminAccountEdit/AdminAccountEdit";
 import AdminRoles from "../Pages/admin/AdminRoles/AdminRoles";
+import AdminRoleCreate from "../Pages/admin/AdminRoleCreate/AdminRoleCreate";
+import AdminRoleEdit from "../Pages/admin/AdminRoleEdit/AdminRoleEdit";
 import AdminPermissions from "../Pages/admin/AdminPermissions/AdminPermissions";
 
 export const RenderRouter = () => {
@@ -50,6 +61,7 @@ export const RenderRouter = () => {
         { path: "/tours/detail/:slugTour", element: <TourDetail /> },
         { path: "/cart", element: <Cart /> },
         { path: "/order/success", element: <OrderSuccess /> },
+        { path: "/order/history", element: <OrderHistory /> },
       ],
     },
 
@@ -68,6 +80,10 @@ export const RenderRouter = () => {
       path: "/login",
       element: <ClientAuth />,
     },
+    {
+      path: "/register",
+      element: <ClientAuth />,
+    },
 
     // ============================
     // ADMIN ROUTES (cần đăng nhập)
@@ -80,14 +96,20 @@ export const RenderRouter = () => {
         </ProtectedRoute>
       ),
       children: [
-        // Redirect /admin → /admin/tours
-        { index: true, element: <Navigate to="tours" replace /> },
+        // Redirect /admin → /admin/dashboard
+        { index: true, element: <Navigate to="dashboard" replace /> },
+
+        // Dashboard
+        { path: "dashboard", element: <AdminDashboard /> },
 
         // Tours
         { path: "tours", element: <AdminTours /> },
         { path: "tours/create", element: <AdminTourCreate /> },
         { path: "tours/edit/:id", element: <AdminTourEdit /> },
         { path: "tours/detail/:id", element: <AdminTourDetail /> },
+
+        // Orders
+        { path: "orders", element: <AdminOrders /> },
 
         // Categories
         { path: "categories", element: <AdminCategories /> },
@@ -97,9 +119,13 @@ export const RenderRouter = () => {
 
         // Accounts
         { path: "accounts", element: <AdminAccounts /> },
+        { path: "accounts/create", element: <AdminAccountCreate /> },
+        { path: "accounts/edit/:id", element: <AdminAccountEdit /> },
 
         // Roles & Permissions
         { path: "roles", element: <AdminRoles /> },
+        { path: "roles/create", element: <AdminRoleCreate /> },
+        { path: "roles/edit/:id", element: <AdminRoleEdit /> },
         { path: "roles/permissions", element: <AdminPermissions /> },
       ],
     },

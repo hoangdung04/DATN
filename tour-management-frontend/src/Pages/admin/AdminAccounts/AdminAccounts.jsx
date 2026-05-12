@@ -63,7 +63,7 @@ function AdminAccounts() {
       key: "role",
       render: (role) => role
         ? <Tag color="blue">{role.title}</Tag>
-        : <Tag color="default">Chưa gán</Tag>,
+        : <Tag color="orange">Khách hàng</Tag>,
     },
     {
       title: "Trạng thái",

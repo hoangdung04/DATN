@@ -1,4 +1,5 @@
 import Role from "../../models/role.model.js";
+import Account from "../../models/account.model.js";
 
 // [GET] /api/admin/roles  – Danh sách vai trò
 export const index = async (req, res) => {
@@ -61,7 +62,12 @@ export const editPatch = async (req, res) => {
 // [DELETE] /api/admin/roles/:id  – Xóa vai trò (soft delete)
 export const deletePatch = async (req, res) => {
   try {
+    // 1. Soft delete vai trò
     await Role.update({ deleted: true, deletedAt: new Date() }, { where: { id: req.params.id } });
+
+    // 2. Gỡ vai trò này khỏi tất cả tài khoản đang sử dụng nó (set về null)
+    await Account.update({ role_id: null }, { where: { role_id: req.params.id } });
+
     res.json({ code: "success", message: "Xóa vai trò thành công" });
   } catch (error) {
     res.status(500).json({ code: "error", message: "Lỗi server" });

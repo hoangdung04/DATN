@@ -149,7 +149,10 @@ function AdminTourEdit() {
             <Form.Item
               label="Tiêu đề"
               name="title"
-              rules={[{ required: true, message: 'Vui lòng nhập tiêu đề tour!' }]}
+              rules={[
+                { required: true, message: 'Vui lòng nhập tiêu đề tour!' },
+                { min: 5, message: 'Tiêu đề phải chứa ít nhất 5 ký tự!' }
+              ]}
             >
               <Input placeholder="Nhập tiêu đề tour" size="large" />
             </Form.Item>
@@ -182,20 +185,36 @@ function AdminTourEdit() {
             </Form.Item>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
-              <Form.Item label="Giá (đ)" name="price">
+              <Form.Item 
+                label="Giá (đ)" 
+                name="price"
+                rules={[{ required: true, message: 'Vui lòng nhập giá!' }]}
+              >
                 <InputNumber min={0} style={{ width: '100%' }} size="large" />
               </Form.Item>
 
-              <Form.Item label="% Giảm giá" name="discount">
+              <Form.Item 
+                label="% Giảm giá" 
+                name="discount"
+                rules={[{ required: true, message: 'Vui lòng nhập % giảm giá!' }]}
+              >
                 <InputNumber min={0} max={100} style={{ width: '100%' }} size="large" />
               </Form.Item>
 
-              <Form.Item label="Số lượng" name="stock">
+              <Form.Item 
+                label="Số lượng" 
+                name="stock"
+                rules={[{ required: true, message: 'Vui lòng nhập số lượng!' }]}
+              >
                 <InputNumber min={0} style={{ width: '100%' }} size="large" />
               </Form.Item>
             </div>
 
-            <Form.Item label="Lịch khởi hành" name="timeStart">
+            <Form.Item 
+              label="Lịch khởi hành" 
+              name="timeStart"
+              rules={[{ required: true, message: 'Vui lòng chọn thời gian khởi hành!' }]}
+            >
               <DatePicker showTime format="YYYY-MM-DD HH:mm" style={{ width: '100%' }} size="large" />
             </Form.Item>
 

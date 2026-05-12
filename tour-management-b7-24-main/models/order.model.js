@@ -23,6 +23,10 @@ const Order = sequelize.define("Order", {
   note: {
     type: DataTypes.STRING(500),
   },
+  account_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
   status: {
     type: DataTypes.STRING(20),
   },

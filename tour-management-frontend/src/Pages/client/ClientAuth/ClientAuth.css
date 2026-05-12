@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #e0f2f1 0%, #ffffff 100%);
   position: relative;
   overflow: hidden;
   padding: 24px;
@@ -17,121 +17,164 @@
 .client-auth-circle {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
-  animation: floatCircle 8s ease-in-out infinite;
+  background: linear-gradient(135deg, rgba(0, 185, 107, 0.1), rgba(0, 185, 107, 0.05));
+  backdrop-filter: blur(40px);
+  animation: floatCircle 10s ease-in-out infinite;
+  z-index: 0;
 }
 .client-auth-circle--1 {
-  width: 400px;
-  height: 400px;
-  top: -100px;
-  left: -100px;
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  left: -150px;
   animation-delay: 0s;
 }
 .client-auth-circle--2 {
-  width: 300px;
-  height: 300px;
-  bottom: -80px;
-  right: -80px;
-  animation-delay: 3s;
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  right: -100px;
+  animation-delay: -5s;
 }
 
 @keyframes floatCircle {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { transform: translate(0px, 0px) scale(1); }
+  50% { transform: translate(30px, -30px) scale(1.05); }
 }
 
 /* Card trắng ở giữa */
 .client-auth-card {
-  background: rgba(255, 255, 255, 0.97);
-  border-radius: 20px;
-  padding: 40px 36px 32px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 24px;
+  padding: 48px 40px 40px;
   width: 100%;
-  max-width: 440px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  max-width: 460px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
-  animation: slideUp 0.5s ease-out;
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(30px); }
+  from { opacity: 0; transform: translateY(40px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Logo */
 .client-auth-logo {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .client-auth-logo-icon {
-  width: 64px;
-  height: 64px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  border-radius: 18px;
+  width: 72px;
+  height: 72px;
+  background: linear-gradient(135deg, #00b96b, #00965e);
+  border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 12px;
-  font-size: 28px;
+  margin: 0 auto 16px;
+  font-size: 32px;
   color: white;
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 185, 107, 0.3);
 }
 
 .client-auth-title {
   margin: 0 !important;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: #1f2937 !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.5px;
 }
 
 .client-auth-subtitle {
-  color: #999;
-  font-size: 14px;
+  color: #6b7280;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 /* Input */
 .client-input .ant-input,
 .client-input {
-  border-radius: 10px !important;
-  height: 46px;
-  border-color: #e8e8e8 !important;
-  transition: border-color 0.3s;
+  border-radius: 12px !important;
+  height: 52px;
+  background-color: #f9fafb !important;
+  border: 1px solid #e5e7eb !important;
+  font-size: 15px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.client-input:hover {
+  border-color: #d1d5db !important;
 }
 .client-input:focus-within {
-  border-color: #667eea !important;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+  background-color: #ffffff !important;
+  border-color: #00b96b !important;
+  box-shadow: 0 0 0 4px rgba(0, 185, 107, 0.1) !important;
 }
 
 .input-icon {
-  color: #667eea;
+  color: #9ca3af;
+  font-size: 18px;
+  margin-right: 8px;
+}
+.client-input:focus-within .input-icon {
+  color: #00b96b;
 }
 
 /* Nút đăng nhập / đăng ký */
 .client-auth-btn {
-  height: 48px !important;
-  border-radius: 12px !important;
+  height: 54px !important;
+  border-radius: 14px !important;
   font-size: 16px !important;
-  font-weight: 600 !important;
-  background: linear-gradient(135deg, #667eea, #764ba2) !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #00b96b, #00965e) !important;
+  color: white !important;
   border: none !important;
-  box-shadow: 0 6px 16px rgba(102, 126, 234, 0.45) !important;
-  transition: transform 0.2s, box-shadow 0.2s !important;
+  box-shadow: 0 8px 20px rgba(0, 185, 107, 0.25) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  margin-top: 12px;
 }
 .client-auth-btn:hover {
   transform: translateY(-2px) !important;
-  box-shadow: 0 10px 24px rgba(102, 126, 234, 0.55) !important;
+  box-shadow: 0 12px 28px rgba(0, 185, 107, 0.35) !important;
+  filter: brightness(1.05);
+}
+.client-auth-btn:active {
+  transform: translateY(1px) !important;
 }
 
 /* Tabs */
+.client-auth-tabs .ant-tabs-nav {
+  margin-bottom: 32px !important;
+}
 .client-auth-tabs .ant-tabs-tab-btn {
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
+  color: #6b7280;
+  transition: color 0.3s;
+}
+.client-auth-tabs .ant-tabs-tab:hover .ant-tabs-tab-btn {
+  color: #374151;
 }
 .client-auth-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  color: #667eea !important;
+  color: #00b96b !important;
 }
 .client-auth-tabs .ant-tabs-ink-bar {
-  background: #667eea !important;
+  background: #00b96b !important;
+  height: 3px !important;
+  border-radius: 3px;
+}
+
+/* Link quay về */
+.client-auth-back-link {
+  color: #6b7280;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.client-auth-back-link:hover {
+  color: #00b96b;
 }

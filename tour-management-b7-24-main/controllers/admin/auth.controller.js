@@ -1,4 +1,5 @@
 import Account from "../../models/account.model.js";
+import Role from "../../models/role.model.js";
 import { hashPassword, comparePassword, generateToken } from "../../helpers/generate.helper.js";
 
 // [POST] /api/admin/auth/login
@@ -20,6 +21,17 @@ export const login = async (req, res) => {
 
     if (account.status === "inactive") {
       return res.status(403).json({ code: "error", message: "Tài khoản đã bị khóa" });
+    }
+
+    // Chặn tài khoản khách hàng (không có role_id)
+    if (!account.role_id) {
+      return res.status(403).json({ code: "error", message: "Bạn không có quyền truy cập trang quản trị" });
+    }
+
+    // Kiểm tra xem Vai trò đó có còn tồn tại không (tránh trường hợp vai trò đã bị xóa)
+    const role = await Role.findOne({ where: { id: account.role_id, deleted: false } });
+    if (!role) {
+      return res.status(403).json({ code: "error", message: "Vai trò của bạn không hợp lệ hoặc đã bị xóa" });
     }
 
     if (!comparePassword(password, account.password)) {

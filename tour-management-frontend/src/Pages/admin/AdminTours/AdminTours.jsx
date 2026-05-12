@@ -29,12 +29,23 @@ const { Title } = Typography;
 function AdminTours() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 10,
+    total: 0,
+  });
 
-  const fetchTours = async () => {
+  const fetchTours = async (page = 1, limit = 10) => {
     setLoading(true);
     try {
-      const response = await getAdminTours();
+      const response = await getAdminTours({ page, limit });
       setTours(response.data.tours);
+      setPagination(prev => ({
+        ...prev,
+        current: response.data.currentPage,
+        pageSize: limit,
+        total: response.data.totalItems,
+      }));
     } catch (error) {
       console.error('Lỗi khi lấy danh sách tour:', error);
       message.error('Không thể lấy danh sách tour');
@@ -45,7 +56,7 @@ function AdminTours() {
 
   // Gọi API: GET /api/admin/tours
   useEffect(() => {
-    fetchTours();
+    fetchTours(pagination.current, pagination.pageSize);
   }, []);
 
   const handleDelete = async (id) => {
@@ -53,7 +64,7 @@ function AdminTours() {
       const res = await deleteAdminTour(id);
       if (res.data.code === 'success') {
         message.success('Xóa tour thành công!');
-        fetchTours();
+        fetchTours(pagination.current, pagination.pageSize);
       } else {
         message.error(res.data.message || 'Xóa thất bại!');
       }
@@ -180,7 +191,13 @@ function AdminTours() {
           dataSource={tours} 
           rowKey="id"
           loading={loading}
-          pagination={{ pageSize: 10 }}
+          pagination={{ 
+            current: pagination.current,
+            pageSize: pagination.pageSize,
+            total: pagination.total,
+            onChange: (page, pageSize) => fetchTours(page, pageSize),
+            showSizeChanger: true
+          }}
         />
       </Card>
     </div>

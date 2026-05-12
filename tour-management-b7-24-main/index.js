@@ -8,6 +8,7 @@ import cors from "cors";
 
 import { clientRoutes } from "./routes/client/index.route.js";
 import { adminRoutes } from "./routes/admin/index.route.js";
+import { notFoundHandler, errorHandler } from "./middlewares/error.middleware.js";
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -34,6 +35,12 @@ app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce
 // API Routes
 app.use("/api/admin", adminRoutes);
 app.use("/api", clientRoutes);
+
+// Bắt lỗi 404 Not Found (đặt sau tất cả các routes)
+app.use(notFoundHandler);
+
+// Xử lý lỗi tập trung (Global Error Handler)
+app.use(errorHandler);
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
